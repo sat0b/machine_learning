@@ -1,4 +1,4 @@
-from load.mnist import get_cifar10
+from uitls.load import get_cifar10
 from model import resnet
 
 (x_train, y_train), (x_test, y_test) = get_cifar10()
