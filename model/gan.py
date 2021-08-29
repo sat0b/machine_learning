@@ -9,10 +9,10 @@ import matplotlib.pyplot as plt
 
 
 class DCGan:
-    def __init__(self):
-        self.noise_vector_dim = 100
-        self.kernel_size = 4
-
+    def __init__(self, input_shape=(28, 28, 1), noise_vector_dim=100, kernel_size=4):
+        self.noise_vector_dim = noise_vector_dim
+        self.kernel_size = kernel_size
+        self.input_shape = input_shape
         self.generator_model = self._build_generator()
         self.discriminator_model = self._build_discriminator()
         # call before build_combined, because combined model need to set trainable to false
@@ -52,7 +52,7 @@ class DCGan:
         return models.Model(input_layer, output_layer, name="generator")
 
     def _build_discriminator(self):
-        input_layer = layers.Input(shape=(28, 28, 1))
+        input_layer = layers.Input(shape=self.input_shape)
         x = layers.Conv2D(filters=64, strides=2, kernel_size=self.kernel_size, padding='same')(input_layer)
         x = layers.LeakyReLU()(x)
 
