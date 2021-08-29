@@ -6,8 +6,8 @@ authors = ["Junichi Sato <sat0b.3ee@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.11"
-numpy = "^1.21.2"
-tensorflow = ">=2.6.0,<3.0.0"
+tensorflow = "^2.6.0"
+matplotlib = "^3.4.3"
 
 [tool.poetry.dev-dependencies]
 

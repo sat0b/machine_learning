@@ -5,6 +5,7 @@ from tensorflow.keras import layers
 from tensorflow.keras import models
 
 from tensorflow.keras.callbacks import TensorBoard
+import matplotlib.pyplot as plt
 
 
 class DCGan:
@@ -98,7 +99,7 @@ class DCGan:
         self.generator_model.summary()
         self.combined_model.summary()
 
-    def _get_random_vector(self, batch_size):
+    def get_random_vector(self, batch_size):
         return np.random.normal(0, 1, (batch_size, self.noise_vector_dim))
 
     def train(self, x_train, num_epoch, batch_size):
@@ -107,7 +108,7 @@ class DCGan:
 
         for epoch in range(num_epoch):
             print("epoch", epoch)
-            input_vector = self._get_random_vector(batch_size)
+            input_vector = self.get_random_vector(batch_size)
             # Generated image
             fake_image = self.generator_model.predict(input_vector)
             fake_label = np.zeros((batch_size, 1))
@@ -125,7 +126,7 @@ class DCGan:
             epoch_logs.update({'disc_loss': 0.5 * (fake_loss + valid_loss), 'disc_acc': 0.5 * (fake_acc + valid_acc)})
 
             # Training for generator
-            input_vector = self._get_random_vector(batch_size)
+            input_vector = self.get_random_vector(batch_size)
             label = np.ones((batch_size, 1))
             logs = self.combined_model.train_on_batch(input_vector, label, return_dict=True)
             epoch_logs.update({'gen_' + key: logs[key] for key in logs})
@@ -134,7 +135,18 @@ class DCGan:
 
         self.tensorboard.on_train_end(None)
 
+    def predict(self, v):
+        return self.generator_model.predict(v)
+
     def save(self, path):
         self.discriminator_model.save(os.path.join(path, "discriminator"))
         self.generator_model.save(os.path.join(path, "generator"))
         self.combined_model.save(os.path.join(path, "combined"))
+
+
+def show_example(model, num):
+    for i in range(num):
+        v = model.get_random_vector(1)
+        y = model.predict(v)
+        plt.imshow(y[0, :, :, 0] * 0.5 + 0.5, cmap='gray')
+        plt.figure()
