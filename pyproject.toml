@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "machine_learning"
+name = "tensorflow_models"
 version = "0.1.0"
 description = ""
 authors = ["Junichi Sato <sat0b.3ee@gmail.com>"]
