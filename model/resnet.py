@@ -1,3 +1,4 @@
+from keras.optimizer_v2.adam import Adam
 from tensorflow.keras import layers
 from tensorflow.keras import models
 
@@ -42,7 +43,7 @@ class ResNet34:
         return models.Model(input_layer, output_layer)
 
     def _compile(self):
-        self.model.compile(optimizer="adam", loss="categorical_crossentropy", metrics="accuracy")
+        self.model.compile(optimizer=Adam(), loss="categorical_crossentropy", metrics="accuracy")
 
     def summary(self):
         self.model.summary()
