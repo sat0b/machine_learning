@@ -1,6 +1,8 @@
 # Tensorflow Models
 
-## Models
+* ResNet
+  * [model/resnet.py](model/resnet.py)
+  * [colab-example (todo)]()
 
 * DCGan
   * [model/gan.py](model/gan.py)
