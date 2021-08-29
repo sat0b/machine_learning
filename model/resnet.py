@@ -47,9 +47,14 @@ class ResNet34:
     def summary(self):
         self.model.summary()
 
-    def train(self, x_train, y_train, epochs, batch_size=64):
-        self.model.fit(x_train, y_train, epochs=epochs, batch_size=64, verbose=self.verbose)
+    def train(self, x_train, y_train, epochs=128, batch_size=64):
+        self.model.fit(x_train, y_train, epochs=epochs, batch_size=batch_size, verbose=self.verbose)
+
+    def save(self, path):
+        self.model.save_weights(path)
+
+    def load(self, path):
+        self.model.load_weights(path)
 
     def predict(self, x):
         return self.model.predict(x)
-
