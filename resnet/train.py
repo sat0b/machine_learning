@@ -1,11 +1,10 @@
-import tensorflow as tf
 from resnet.model import ResNet34
 
 
 def run(model: ResNet34, x_train, y_train, validation_data=None, epochs=128, batch_size=64, verbose=True):
-    cp_callback = tf.keras.callbacks.ModelCheckpoint("checkpoints/resnet/ckpt",
-                                                     save_weights_only=True,
-                                                     verbose=True)
+    # cp_callback = tf.keras.callbacks.ModelCheckpoint("checkpoints/resnet/ckpt",
+    #                                                  save_weights_only=True,
+    #                                                  verbose=True)
     # tensorboard_callback = TensorBoard(log_dir="logs",
     #                                    histogram_freq=0,
     #                                    write_graph=True,
@@ -17,5 +16,5 @@ def run(model: ResNet34, x_train, y_train, validation_data=None, epochs=128, bat
               batch_size=batch_size,
               verbose=verbose,
               shuffle=True,
-              # callbacks=[tensorboard_callback, cp_callback])
-              callbacks=[cp_callback])
+              # callbacks=[tensorboard_callback, cp_callback]
+              )
