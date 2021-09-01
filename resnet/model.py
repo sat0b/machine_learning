@@ -1,17 +1,14 @@
 from keras.optimizer_v2.adam import Adam
 from tensorflow.keras import layers
 from tensorflow.keras import models
-from tensorflow.keras.callbacks import TensorBoard
 
 
 class ResNet34:
-    def __init__(self, input_shape=(224, 224, 3), output_shape=10, verbose=True):
+    def __init__(self, input_shape=(224, 224, 3), output_shape=10):
         self.input_shape = input_shape
         self.output_shape = output_shape
         self.model = self._build()
         self._compile()
-        self.verbose = verbose
-        self.tensorboard_callback = None
 
     def _res_block(self, x, filters=64, down_sampling=False, blocks=1):
         for block in range(blocks):
@@ -50,26 +47,11 @@ class ResNet34:
     def summary(self):
         self.model.summary()
 
-    def train(self, x_train, y_train, validation_data=None, epochs=128, batch_size=64):
-        self.tensorboard_callback = TensorBoard(log_dir="logs",
-                                                histogram_freq=0,
-                                                batch_size=batch_size,
-                                                write_graph=True,
-                                                write_images=True)
-        self.model.fit(x_train,
-                       y_train,
-                       epochs=epochs,
-                       validation_data=validation_data,
-                       batch_size=batch_size,
-                       verbose=self.verbose,
-                       shuffle=True,
-                       callbacks=[self.tensorboard_callback])
-
-    def save(self, path):
-        self.model.save_weights(path)
-
     def load(self, path):
         self.model.load_weights(path)
+
+    def fit(self, x_train, y_train, **kwargs):
+        self.model.fit(x_train, y_train, **kwargs)
 
     def predict(self, x):
         return self.model.predict(x)
