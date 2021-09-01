@@ -1,4 +1,4 @@
-from keras.optimizer_v2.adam import Adam
+from tensorflow.keras.optimizers import Adam
 from tensorflow.keras import layers
 from tensorflow.keras import models
 

@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow.python.keras.callbacks import TensorBoard
+from tensorflow.keras.callbacks import TensorBoard
 
 from resnet.model import ResNet34
 
@@ -10,7 +10,6 @@ def run(model: ResNet34, x_train, y_train, validation_data=None, epochs=128, bat
                                                      verbose=True)
     tensorboard_callback = TensorBoard(log_dir="logs",
                                        histogram_freq=0,
-                                       batch_size=batch_size,
                                        write_graph=True,
                                        write_images=True)
     model.fit(x_train,
