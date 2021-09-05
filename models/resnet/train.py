@@ -1,4 +1,4 @@
-from resnet.model import ResNet34
+from .model import ResNet34
 
 
 def run(model: ResNet34, x_train, y_train, validation_data=None, epochs=128, batch_size=64, verbose=True):

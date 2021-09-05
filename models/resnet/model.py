@@ -1,6 +1,6 @@
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras import layers
-from tensorflow.keras import models
+from tensorflow.python.keras import layers
+from tensorflow.python.keras import models
+from tensorflow.python.keras.optimizer_v2.adam import Adam
 
 
 class ResNet34:
